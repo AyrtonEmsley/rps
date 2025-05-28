@@ -1,16 +1,19 @@
 let playerScore = 0;
 let computerScore = 0;
 
+// Get references to DOM elements
 const roundResult = document.getElementById('round-result');
 const scoreDisplay = document.getElementById('score');
 const winnerDisplay = document.getElementById('winner');
 
+// Generate random computer choice
 function getComputerChoice() {
   const choices = ["rock", "paper", "scissors"];
   const randomIndex = Math.floor(Math.random() * choices.length);
   return choices[randomIndex];
 }
 
+// Play one round
 function playRound(playerSelection) {
   const computerSelection = getComputerChoice();
   const player = playerSelection.toLowerCase();
@@ -41,14 +44,30 @@ function playRound(playerSelection) {
   }
 }
 
+// Disable buttons when game ends
 function disableButtons() {
   document.getElementById('rock').disabled = true;
   document.getElementById('paper').disabled = true;
   document.getElementById('scissors').disabled = true;
 }
 
-// Attach event listeners to the buttons
+// Add event listeners for buttons
 document.getElementById('rock').addEventListener('click', () => playRound('rock'));
 document.getElementById('paper').addEventListener('click', () => playRound('paper'));
 document.getElementById('scissors').addEventListener('click', () => playRound('scissors'));
+// Reset game
+document.getElementById('reset').addEventListener('click', () => {
+  playerScore = 0;
+  computerScore = 0;
+  roundResult.textContent = '';
+  scoreDisplay.textContent = 'Player: 0 | Computer: 0';
+  winnerDisplay.textContent = '';
+  document.getElementById('rock').disabled = false;
+  document.getElementById('paper').disabled = false;
+  document.getElementById('scissors').disabled = false;
+});
+// Initialize score display
+scoreDisplay.textContent = 'Player: 0 | Computer: 0';
+// Initialize round result and winner display
+roundResult.textContent = '';   
 
