@@ -1,55 +1,54 @@
+let playerScore = 0;
+let computerScore = 0;
+
+const roundResult = document.getElementById('round-result');
+const scoreDisplay = document.getElementById('score');
+const winnerDisplay = document.getElementById('winner');
+
 function getComputerChoice() {
   const choices = ["rock", "paper", "scissors"];
   const randomIndex = Math.floor(Math.random() * choices.length);
   return choices[randomIndex];
 }
 
-function playRound(playerSelection, computerSelection) {
+function playRound(playerSelection) {
+  const computerSelection = getComputerChoice();
   const player = playerSelection.toLowerCase();
   const computer = computerSelection;
+  let result = '';
 
   if (player === computer) {
-    return "It's a tie!";
-  }
-
-  if (
+    result = "It's a tie!";
+  } else if (
     (player === "rock" && computer === "scissors") ||
     (player === "paper" && computer === "rock") ||
     (player === "scissors" && computer === "paper")
   ) {
-    return `You win! ${player} beats ${computer}`;
+    result = `You win! ${player} beats ${computer}`;
+    playerScore++;
   } else {
-    return `You lose! ${computer} beats ${player}`;
+    result = `You lose! ${computer} beats ${player}`;
+    computerScore++;
+  }
+
+  roundResult.textContent = result;
+  scoreDisplay.textContent = `Player: ${playerScore} | Computer: ${computerScore}`;
+
+  if (playerScore === 5 || computerScore === 5) {
+    winnerDisplay.textContent =
+      playerScore === 5 ? "🎉 You win the game!" : "💀 Computer wins the game!";
+    disableButtons();
   }
 }
 
-/*
-function game() {
-  let playerScore = 0;
-  let computerScore = 0;
-
-  for (let i = 0; i < 5; i++) {
-    const playerSelection = prompt("Rock, Paper, or Scissors?");
-    const computerSelection = getComputerChoice();
-    const result = playRound(playerSelection, computerSelection);
-    console.log(result);
-
-    if (result.startsWith("You win")) {
-     playerScore++;
-    } else if (result.startsWith("You lose")) {
-     computerScore++;
-    }
-  }
-
-  console.log(`Final Score - You: ${playerScore} | Computer: ${computerScore}`);
-  if (playerScore > computerScore) {
-    console.log("You won the game!");
-  } else if (playerScore < computerScore) {
-    console.log("You lost the game!");
-  } else {
-    console.log("The game is a tie!");
-  }
+function disableButtons() {
+  document.getElementById('rock').disabled = true;
+  document.getElementById('paper').disabled = true;
+  document.getElementById('scissors').disabled = true;
 }
 
-game();
-*/
+// Attach event listeners to the buttons
+document.getElementById('rock').addEventListener('click', () => playRound('rock'));
+document.getElementById('paper').addEventListener('click', () => playRound('paper'));
+document.getElementById('scissors').addEventListener('click', () => playRound('scissors'));
+
