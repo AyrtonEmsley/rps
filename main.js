@@ -23,6 +23,7 @@ function playRound(playerSelection, computerSelection) {
   }
 }
 
+/*
 function game() {
   let playerScore = 0;
   let computerScore = 0;
@@ -34,9 +35,9 @@ function game() {
     console.log(result);
 
     if (result.startsWith("You win")) {
-      playerScore++;
+     playerScore++;
     } else if (result.startsWith("You lose")) {
-      computerScore++;
+     computerScore++;
     }
   }
 
@@ -51,3 +52,4 @@ function game() {
 }
 
 game();
+*/
